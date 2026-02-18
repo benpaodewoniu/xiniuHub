@@ -4,26 +4,6 @@
     "icon": "🤖",
     "items": [
       {
-        "name": "ChatGPT",
-        "url": "https://chat.openai.com",
-        "desc": "OpenAI 对话助手"
-      },
-      {
-        "name": "Claude",
-        "url": "https://claude.ai",
-        "desc": "Anthropic 智能助手"
-      },
-      {
-        "name": "Midjourney",
-        "url": "https://midjourney.com",
-        "desc": "AI 绘画生成"
-      },
-      {
-        "name": "Gemini",
-        "url": "https://gemini.google.com",
-        "desc": "Google AI 助手"
-      },
-      {
         "name": "Lovart",
         "url": "https://www.lovart.ai",
         "desc": "AI 生成图像平台"
@@ -36,65 +16,13 @@
     ]
   },
   {
-    "category": "开发工具",
-    "icon": "🛠️",
-    "items": [
-      {
-        "name": "GitHub",
-        "url": "https://github.com",
-        "desc": "代码托管平台"
-      },
-      {
-        "name": "VS Code",
-        "url": "https://code.visualstudio.com",
-        "desc": "代码编辑器"
-      },
-      {
-        "name": "Stack Overflow",
-        "url": "https://stackoverflow.com",
-        "desc": "技术问答社区"
-      }
-    ]
-  },
-  {
     "category": "设计资源",
     "icon": "🎨",
     "items": [
       {
-        "name": "Figma",
-        "url": "https://figma.com",
-        "desc": "在线设计工具"
-      },
-      {
-        "name": "Dribbble",
-        "url": "https://dribbble.com",
-        "desc": "设计灵感社区"
-      },
-      {
-        "name": "Unsplash",
-        "url": "https://unsplash.com",
-        "desc": "免费高清图片"
-      },
-      {
         "name": "App Mockup",
         "url": "https://studio.app-mockup.com",
         "desc": "App 宣传图生成"
-      }
-    ]
-  },
-  {
-    "category": "效率工具",
-    "icon": "⚡",
-    "items": [
-      {
-        "name": "Notion",
-        "url": "https://notion.so",
-        "desc": "笔记与协作"
-      },
-      {
-        "name": "Excalidraw",
-        "url": "https://excalidraw.com",
-        "desc": "手绘风格白板"
       }
     ]
   }

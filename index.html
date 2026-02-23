@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xiniuHub - 我的导航站</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.5;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #86868b;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 20px 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 6px 18px;
+      border: 1px solid #d2d2d7;
+      border-radius: 20px;
+      background: #fff;
+      color: #1d1d1f;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: #0071e3; color: #0071e3; }
+    .filter-btn.active { background: #0071e3; color: #fff; border-color: #0071e3; }
+
+    .grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+    .card .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: #0071e3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .card-body { flex: 1; min-width: 0; }
+
+    .card-body h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-body .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: #86868b;
+      background: #f5f5f7;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+
+    .card-body p {
+      font-size: 0.85rem;
+      color: #6e6e73;
+      margin-bottom: 10px;
+    }
+
+    .card-body a {
+      font-size: 0.85rem;
+      color: #0071e3;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .card-body a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #86868b;
+      font-size: 0.8rem;
+      border-top: 1px solid #e8e8ed;
+    }
+
+    @media (max-width: 680px) {
+      header h1 { font-size: 1.8rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>xiniuHub</h1>
+  <p>我的导航站，快速抵达常用网站</p>
+</header>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-cat="all">全部</button>
+  <button class="filter-btn" data-cat="ai">AI 工具</button>
+  <button class="filter-btn" data-cat="design">设计资源</button>
+</div>
+
+<div class="grid" id="app-grid"></div>
+
+<footer>xiniuHub &copy; 2026</footer>
+
+<script>
+const sites = [
+  {
+    name: "Lovart",
+    cat: "ai",
+    desc: "AI 生成图像平台，轻松创建高质量的 AI 艺术作品。",
+    url: "https://www.lovart.ai"
+  },
+  {
+    name: "Ludo AI",
+    cat: "ai",
+    desc: "AI 动画帧平台，用 AI 快速生成动画和创意内容。",
+    url: "https://ludo.ai"
+  },
+  {
+    name: "App Mockup",
+    cat: "design",
+    desc: "App 宣传图生成工具，快速制作精美的应用商店截图。",
+    url: "https://studio.app-mockup.com"
+  },
+  {
+    name: "iLoveIMG",
+    cat: "design",
+    desc: "在线图片处理工具，支持压缩、裁剪、转换等批量操作。",
+    url: "https://www.iloveimg.com/zh-cn"
+  },
+];
+
+const catLabels = {
+  ai: "AI 工具",
+  design: "设计资源"
+};
+
+const catColors = {
+  ai: "#0071e3",
+  design: "#e3568b"
+};
+
+const grid = document.getElementById("app-grid");
+const buttons = document.querySelectorAll(".filter-btn");
+
+function render(cat) {
+  grid.innerHTML = "";
+  const list = cat === "all" ? sites : sites.filter(s => s.cat === cat);
+  list.forEach(site => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="icon" style="background:${catColors[site.cat]}">${site.name.charAt(0)}</div>
+      <div class="card-body">
+        <h3>${site.name}</h3>
+        <span class="tag">${catLabels[site.cat]}</span>
+        <p>${site.desc}</p>
+        <a href="${site.url}" target="_blank" rel="noopener">访问 &rarr;</a>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    render(btn.dataset.cat);
+  });
+});
+
+render("all");
+</script>
+
+</body>
+</html>
